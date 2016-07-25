@@ -13,8 +13,8 @@
 ActiveRecord::Schema.define(version: 20160724192110) do
 
   create_table "appointments", force: :cascade do |t|
-    t.datetime "start"
-    t.datetime "end"
+    t.integer "start"
+    t.integer "end"
   end
 
   create_table "doctor_appointments", force: :cascade do |t|
