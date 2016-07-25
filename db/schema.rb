@@ -17,9 +17,9 @@ ActiveRecord::Schema.define(version: 20160724192110) do
     t.datetime "end"
   end
 
-  create_table "doctor_appointments", force: :cascade do |t|
+  create_table "doctor_patients", force: :cascade do |t|
     t.integer "doctor_id"
-    t.integer "appointment_id"
+    t.integer "patient_id"
   end
 
   create_table "doctor_specialties", force: :cascade do |t|
@@ -33,9 +33,9 @@ ActiveRecord::Schema.define(version: 20160724192110) do
     t.string "password_digest"
   end
 
-  create_table "patient_appointments", force: :cascade do |t|
-    t.integer "patient_id"
+  create_table "meetings", force: :cascade do |t|
     t.integer "appointment_id"
+    t.integer "doctor_patient_id"
   end
 
   create_table "patients", force: :cascade do |t|
