@@ -28,9 +28,10 @@ ActiveRecord::Schema.define(version: 20160724192110) do
   end
 
   create_table "doctors", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "password_digest"
+    t.string "name",                               null: false
+    t.string "email",                              null: false
+    t.string "password_digest",                    null: false
+    t.string "user_type",       default: "doctor", null: false
   end
 
   create_table "meetings", force: :cascade do |t|
@@ -39,13 +40,14 @@ ActiveRecord::Schema.define(version: 20160724192110) do
   end
 
   create_table "patients", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "password_digest"
+    t.string "name",                                null: false
+    t.string "email",                               null: false
+    t.string "password_digest",                     null: false
+    t.string "user_type",       default: "patient", null: false
   end
 
   create_table "specialties", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
   end
 
 end
