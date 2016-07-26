@@ -18,10 +18,10 @@ class ApplicationController < Sinatra::Base
   end
 
   post "/signup/doctors" do
-    if params[:name].empty? || params[:email].empty? || params[:password].empty?
+    if params[:doctor][:name].empty? || params[:doctor][:email].empty? || params[:doctor][:password].empty?
       redirect to "/"
     else
-      doctor = Doctor.new(name: params[:name], email: params[:email], password: params[:password])
+      doctor = Doctor.new(params[:doctor])
 
       if doctor.save
         session[:id] = doctor.id
@@ -35,10 +35,10 @@ class ApplicationController < Sinatra::Base
   end
 
   post "/signup/patients" do
-    if params[:name].empty? || params[:email].empty? || params[:password].empty?
+    if params[:patient][:name].empty? || params[:patient][:email].empty? || params[:patient][:password].empty?
       redirect to "/"
     else
-      patient = Patient.new(name: params[:name], email: params[:email], password: params[:password])
+      patient = Patient.new(params[:patient])
 
       if patient.save
         session[:id] = patient.id
