@@ -1,0 +1,29 @@
+<h1>Your Profile</h1>
+
+<form action="/doctors/<%=current_doctor_user.slug%>/profile/edit" method="post">
+  <input id="hidden" type="hidden" name="_method" value="patch">
+
+  <label for="doctor[name]">
+    <p>Name: <input id="doctor[name]" type="text" name="doctor[name]" value="<%= current_doctor_user.name %>"></p>
+  </label>
+
+  <label for="doctor[email]">
+    <p>Email: <input id="doctor[email]" type="text" name="doctor[email]" value="<%= current_doctor_user.email %>"></p>
+  </label>
+
+  <label for="doctor[password]">
+    <p>Password: <input id="doctor[password]" type="password" name="doctor[password]"></p>
+  </label>
+
+  <% Specialty.all.each do |specialty| %>
+    <label for="<%=specialty.id%>">
+      <%= specialty.name %>
+      <input id="<%=specialty.id%>" type="checkbox" name="doctor[specialty_ids][]" value="<%=specialty.id%>" <%= 'checked' if current_doctor_user.specialties.include?(specialty)%>>
+    </label>
+  <% end %>
+  <br></br>
+
+  <input type="submit" value="Update">
+</form>
+
+<a href="/logout">Log Out</a>

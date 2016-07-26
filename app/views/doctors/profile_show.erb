@@ -1,0 +1,12 @@
+<h1>Your Profile</h1>
+
+<h3>Name: <%= current_doctor_user.name %></h3>
+<p>Email: <%= current_doctor_user.email %></p>
+<p>Specialties:
+  <% current_doctor_user.specialties.all.each do |specialty| %>
+    <%= specialty.name %>
+  <% end %>
+</p>
+
+<a href="/<%=current_doctor_user.user_type.pluralize%>/<%=current_doctor_user.slug%>/profile/edit">Edit</a>
+<a href="/logout">Log Out</a>
