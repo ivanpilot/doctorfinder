@@ -1,0 +1,23 @@
+<h1>Your Profile</h1>
+
+<form action="/patients/<%=current_patient_user.slug%>/profile/edit" method="post">
+  <input id="hidden" type="hidden" name="_method" value="patch">
+
+  <label for="patient[name]">
+    <p>Name: <input id="patient[name]" type="text" name="patient[name]" value="<%= current_patient_user.name %>"></p>
+  </label>
+
+  <label for="patient[email]">
+    <p>Email: <input id="patient[email]" type="text" name="patient[email]" value="<%= current_patient_user.email %>"></p>
+  </label>
+
+  <label for="patient[password]">
+    <p>Password: <input id="patient[password]" type="password" name="patient[password]"></p>
+  </label>
+
+
+  <input type="submit" value="Update">
+</form>
+
+<a href="/patients/<%=current_patient_user.slug%>/home">Home</a>
+<a href="/logout">Log Out</a>

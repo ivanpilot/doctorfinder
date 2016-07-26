@@ -1,0 +1,9 @@
+<h1>Your Profile</h1>
+
+<h3>Name: <%= current_patient_user.name %></h3>
+<p>Email: <%= current_patient_user.email %></p>
+
+
+<a href="/<%=current_patient_user.user_type.pluralize%>/<%=current_patient_user.slug%>/profile/edit">Edit</a>
+<a href="/patients/<%=current_patient_user.slug%>/home">Home</a>
+<a href="/logout">Log Out</a>
