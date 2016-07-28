@@ -55,13 +55,7 @@ class DoctorsController < ApplicationController
       ######## SHOW A BOX DIALOGUE !!!!!!!!!!!!!!
     else
       appointment.save
-      patient = Patient.find_by(name: params[:patient_name])
-
-      if !patient
-        patient = Patient.create(name: params[:patient_name], password: params[:patient_name])
-      end
-
-      current_doctor_user.book_appointment_with_patient(appointment, patient)
+      current_doctor_user.book_appointment_with_patient(appointment, params[:patient_name])
     end
 
     redirect to "/doctors/#{current_doctor_user.slug}/home"

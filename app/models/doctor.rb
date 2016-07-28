@@ -49,7 +49,12 @@ class Doctor < ActiveRecord::Base
     end
   end
 
-  def book_appointment_with_patient(appointment, patient)
+  def book_appointment_with_patient(appointment, patient_name)
+    patient = Patient.find_by(name: patient_name)
+    if !patient
+      patient = Patient.create(name: patient_name, password: patient_name)
+    end
+
     if !self.patients.include?(patient)
       self.patients << patient
     end
