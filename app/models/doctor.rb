@@ -19,14 +19,28 @@ class Doctor < ActiveRecord::Base
   end
 
   def appointments_all
-    self.meetings_all.collect do |meeting|
+    appointments = self.meetings_all.collect do |meeting|
       meeting.appointment
     end
+    appointments.sort_by {|appointment| appointment.details[:start]}
   end
 
   def appointments_with_patient(patient)
-    self.meetings_with_patient(patient).collect do |meeting|
+    appointments = self.meetings_with_patient(patient).collect do |meeting|
       meeting.appointment
+    end
+    appointments.sort_by {|appointment| appointment.details[:start]}
+  end
+
+  def appointments_history(appointments)
+    appointments.select do |appointment|
+      appointment.details[:end] < DateTime.now
+    end.reverse
+  end
+
+  def appointments_coming(appointments)
+    appointments.select do |appointment|
+      appointment.details[:end] > DateTime.now
     end
   end
 

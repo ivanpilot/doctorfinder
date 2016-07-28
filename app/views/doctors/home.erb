@@ -3,16 +3,19 @@
 <a href="/doctors/<%=current_doctor_user.slug%>/appointment_new">New Appointment</a>
 <br>
 
+<a href="/doctors/<%=current_doctor_user.slug%>/appointment_history">Appointment History</a>
+<br>
+
 <a href="/doctors/<%=current_doctor_user.slug%>/profile">Profile</a>
 <br>
 
 <a href="/logout">Log Out</a>
 <br></br>
 
-<h2>Your Appointments</h2>
+<h2>Your Coming Appointments</h2>
   <ol>
-    <% current_doctor_user.appointments_all.each do |appointment| %>
-      <li><%= appointment.details[:start] %></li>
+    <% current_doctor_user.appointments_coming(@appointments_all).each do |appointment| %>
+      <li> <%=appointment.details[:start].strftime('%A')%> <%=appointment.details[:start].strftime('%v')%> at <%=appointment.details[:start].strftime('%R')%></li>
       <% appointment.details[:patients].each do |patient| %>
         <ul>
           <li>Patient: <%= patient.name %></li>

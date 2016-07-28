@@ -21,5 +21,4 @@ class Appointment < ActiveRecord::Base
     appointment_details
   end
 
-
 end
