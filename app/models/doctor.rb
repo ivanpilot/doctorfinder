@@ -32,14 +32,14 @@ class Doctor < ActiveRecord::Base
     appointments.sort_by {|appointment| appointment.details[:start]}
   end
 
-  def appointments_history(appointments)
-    appointments.select do |appointment|
+  def appointments_history
+    self.appointments_all.select do |appointment|
       appointment.details[:end] < DateTime.now
     end.reverse
   end
 
-  def appointments_coming(appointments)
-    appointments.select do |appointment|
+  def appointments_coming
+    self.appointments_all.select do |appointment|
       appointment.details[:end] > DateTime.now
     end
   end

@@ -14,7 +14,7 @@
 
 <h2>Your Coming Appointments</h2>
   <ol>
-    <% current_doctor_user.appointments_coming(@appointments_all).each do |appointment| %>
+    <% current_doctor_user.appointments_coming.each do |appointment| %>
       <li> <%=appointment.details[:start].strftime('%A')%> <%=appointment.details[:start].strftime('%v')%> at <%=appointment.details[:start].strftime('%R')%></li>
       <% appointment.details[:patients].each do |patient| %>
         <ul>
@@ -22,33 +22,8 @@
         </ul>
       <% end %>
       <br>
+      <a href="/doctors/<%=current_doctor_user.slug%>/appointments/<%=appointment.id%>/edit">Modify</a>
+      <a href="#">Delete</a>
+      <br></br>
     <% end %>
   </ol>
-
-
-
-
-
-
-
-
-<!-- <% current_doctor_user.doctor_patients.all.each do |doctor_patient|%>
-  <ol>
-
-  <% doctor_patient.appointments.all.each do |appointment| %>
-  <li>
-    <% patient = Patient.find(doctor_patient.patient_id)%>
-
-      <h3>Start: <a href="/appointments/<%=appointment.id%>"><%=appointment.start%></a></h3>
-      <ul>
-        <li>
-          <p>Patient: <a href="/doctors/<%=current_doctor_user.slug%>/patients/<%=patient.slug%>"><%=patient.name%></a></p>
-        </li>
-      </ul>
-
-    <br></br>
-    </li>
-  <% end %>
-
-  </ol>
-<% end %> -->

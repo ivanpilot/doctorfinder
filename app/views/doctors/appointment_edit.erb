@@ -1,0 +1,46 @@
+<h1>Update Your Appointment</h1>
+
+<form action="/doctors/<%=current_doctor_user.slug%>/appointments/<%=@appointment.id%>/edit" method="post">
+  <input id="hidden" type="hidden" name="_method" value="patch">
+  <h2>Date</h2>
+  Day
+  <select name="day">
+    <% for i in 1..31 %>
+      <option value="<%=i%>"><%=i%></option>
+    <% end %>
+  </select>
+
+  Month
+  <select name="month">
+    <% for i in 1..12 %>
+      <option value="<%=i%>"><%=i%></option>
+    <% end %>
+  </select>
+
+  Year
+  <select name="year">
+    <% for i in 2016..2018 %>
+      <option value="<%=i%>"><%=i%></option>
+    <% end %>
+  </select>
+  <br></br>
+
+  <h2>Time</h2>
+  Hour
+  <select name="hour">
+    <% for i in 8..20 %>
+      <option value="<%=i%>"><%=i%></option>
+    <% end %>
+  </select>
+
+  Minute
+  <select name="minute">
+    <option value="0">00</option>
+    <option value="15">15</option>
+    <option value="30">30</option>
+    <option value="45">45</option>
+  </select>
+  <br></br>
+
+  <input type="submit" value="Update Appointment">
+</form>
