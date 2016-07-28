@@ -50,46 +50,21 @@ class DoctorsController < ApplicationController
 
     appointment = Appointment.new(start: DateTime.new(year, month, day, hour, minute), end: DateTime.new(year, month, day, hour + 1, minute))
 
-    appointment_booked = Appointment.all.find {|appointment|  appointment.doctor_patients.doctor_id == current_doctor_user.id}
-    if appointment_booked.include?(appointment)
-      redirect to "/doctors/:slug/appointment_new"
+    if current_doctor_user.slot_taken?(appointment) || params[:patient_name].empty?
+      redirect to "/doctors/#{current_doctor_user.slug}/appointment_new"
+      ######## SHOW A BOX DIALOGUE !!!!!!!!!!!!!!
     else
       appointment.save
+      patient = Patient.find_by(name: params[:patient_name])
+
+      if !patient
+        patient = Patient.create(name: params[:patient_name], password: params[:patient_name])
+      end
+
+      current_doctor_user.book_appointment_with_patient(appointment, patient)
     end
 
-    # current_doctor_user.doctor_patients.all.each do |doctor_patient|
-    #   if doctor_patient.appointments.include?(appointment)
-    #     redirect to "/doctors/:slug/appointment_new"
-    #   else
-    #     appointment.save
-    #   end
-    # end
-
-    patient_found = Patient.find_by(name: params[:patient_name])
-    if !patient_found
-      patient_new = Patient.create(name: params[:patient_name], password: params[:patient_name])
-      current_doctor_user.patients << patient_new
-      doctor_patient = DoctorPatient.find_by(doctor_id: current_doctor_user.id, patient_id: patient_new.id)
-    elsif patient_found && current_doctor_user.patients.include?(patient_found)
-      doctor_patient = DoctorPatient.find_by(doctor_id: current_doctor_user.id, patient_id: patient_found.id)
-    else patient_found
-      current_doctor_user.patients << patient_found
-      doctor_patient = DoctorPatient.find_by(doctor_id: current_doctor_user.id, patient_id: patient_found.id)
-    end
-    doctor_patient.appointments << appointment
-
-
-
-
-    # # binding.pry
-    # if !current_doctor_user.patients.include?(@patient)
-    #   current_doctor_user.patients << @patient
-    # end
-    # @doctor_patient =
-
-    redirect to "/doctors/:slug/home"
+    redirect to "/doctors/#{current_doctor_user.slug}/home"
   end
-
-
 
 end
