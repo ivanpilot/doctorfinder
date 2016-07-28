@@ -8,6 +8,8 @@ class Doctor < ActiveRecord::Base
 
   has_secure_password
 
+  ##############_______PUBLIC_______##############
+
   def slug
     self.name.downcase.split(" ").join("-")
   end
@@ -16,38 +18,9 @@ class Doctor < ActiveRecord::Base
     self.all.find {|patient| patient.slug == slug.downcase}
   end
 
-  def relationship_with_patient(patient)
-    self.doctor_patients.find_by(patient_id: patient.id)
-  end
-
-  def meetings_all
-    meetings = []
-    self.doctor_patients.each do |doctor_patient|
-      doctor_patient.meetings.each do |meeting|
-        meetings << meeting
-      end
-    end
-    meetings
-  end
-
   def appointments_all
-    appointments = []
-
-    self.meetings_all.each do |meeting|
-      appointment = {}
-      appointment[:appointment] = meeting.appointment
-      appointment[:patients] = meeting.appointment.find_participants[:patients].collect do |patient|
-        patient
-      end
-      appointments << appointment
-    end
-    appointments#.sort_by{|appointment| appointment.start}
-  end
-
-  def meetings_with_patient(patient)
-    relationship = self.relationship_with_patient(patient)
-    self.meetings_all.select do |meeting|
-      meeting.doctor_patient_id == relationship.id
+    self.meetings_all.collect do |meeting|
+      meeting.appointment
     end
   end
 
@@ -77,5 +50,27 @@ class Doctor < ActiveRecord::Base
     doctor_patient.appointments << appointment
   end
 
+  ##############_______PRIVATE_______##############
+
+  def relationship_with_patient(patient)
+    self.doctor_patients.find_by(patient_id: patient.id)
+  end
+
+  def meetings_with_patient(patient)
+    relationship = self.relationship_with_patient(patient)
+    self.meetings_all.select do |meeting|
+      meeting.doctor_patient_id == relationship.id
+    end
+  end
+
+  def meetings_all
+    meetings = []
+    self.doctor_patients.each do |doctor_patient|
+      doctor_patient.meetings.each do |meeting|
+        meetings << meeting
+      end
+    end
+    meetings
+  end
 
 end

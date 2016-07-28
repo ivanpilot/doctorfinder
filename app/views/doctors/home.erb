@@ -12,8 +12,8 @@
 <h2>Your Appointments</h2>
   <ol>
     <% current_doctor_user.appointments_all.each do |appointment| %>
-      <li><%= appointment[:appointment].start %></li>
-      <% appointment[:patients].each do |patient| %>
+      <li><%= appointment.details[:start] %></li>
+      <% appointment.details[:patients].each do |patient| %>
         <ul>
           <li>Patient: <%= patient.name %></li>
         </ul>
