@@ -4,15 +4,19 @@ class Appointment < ActiveRecord::Base
   has_many :doctor_patients, through: :meetings
 
   def find_participants
-    participants = {
+    appointment_info = {
       :doctors => [],
       :patients => []
     }
-
+    # appointment_info[:start] = 
     self.doctor_patients.each do |doctor_patient|
-      participants[:doctors] << Doctor.find(doctor_patient.doctor_id)
-      participants[:patients] << Patient.find(doctor_patient.patient_id)
+      appointment_info[:doctors] << Doctor.find(doctor_patient.doctor_id)
+      appointment_info[:patients] << Patient.find(doctor_patient.patient_id)
     end
-    participants
+    appointment_info
   end
+
+  # def sorted()
+
+
 end

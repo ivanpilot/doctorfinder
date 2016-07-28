@@ -15,7 +15,7 @@
       <li><%= appointment[:appointment].start %></li>
       <% appointment[:patients].each do |patient| %>
         <ul>
-          <li><%= patient.name %></li>
+          <li>Patient: <%= patient.name %></li>
         </ul>
       <% end %>
       <br>

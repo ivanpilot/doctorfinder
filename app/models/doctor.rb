@@ -41,7 +41,7 @@ class Doctor < ActiveRecord::Base
       end
       appointments << appointment
     end
-    appointments
+    appointments#.sort_by{|appointment| appointment.start}
   end
 
   def meetings_with_patient(patient)
