@@ -10,8 +10,26 @@
 <br></br>
 
 <h2>Your Appointments</h2>
+  <ol>
+    <% current_doctor_user.appointments_all.each do |appointment| %>
+      <li><%= appointment[:appointment].start %></li>
+      <% appointment[:patients].each do |patient| %>
+        <ul>
+          <li><%= patient.name %></li>
+        </ul>
+      <% end %>
+      <br>
+    <% end %>
+  </ol>
 
-<% current_doctor_user.doctor_patients.all.each do |doctor_patient|%>
+
+
+
+
+
+
+
+<!-- <% current_doctor_user.doctor_patients.all.each do |doctor_patient|%>
   <ol>
 
   <% doctor_patient.appointments.all.each do |appointment| %>
@@ -30,4 +48,4 @@
   <% end %>
 
   </ol>
-<% end %>
+<% end %> -->
