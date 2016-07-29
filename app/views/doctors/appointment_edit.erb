@@ -4,21 +4,21 @@
   <input id="hidden" type="hidden" name="_method" value="patch">
   <h2>Date</h2>
   Day
-  <select name="day">
+  <select name="appointment_date[day]">
     <% for i in 1..31 %>
       <option value="<%=i%>"><%=i%></option>
     <% end %>
   </select>
 
   Month
-  <select name="month">
+  <select name="appointment_date[month]">
     <% for i in 1..12 %>
       <option value="<%=i%>"><%=i%></option>
     <% end %>
   </select>
 
   Year
-  <select name="year">
+  <select name="appointment_date[year]">
     <% for i in 2016..2018 %>
       <option value="<%=i%>"><%=i%></option>
     <% end %>
@@ -27,14 +27,14 @@
 
   <h2>Time</h2>
   Hour
-  <select name="hour">
+  <select name="appointment_date[hour]">
     <% for i in 8..20 %>
       <option value="<%=i%>"><%=i%></option>
     <% end %>
   </select>
 
   Minute
-  <select name="minute">
+  <select name="appointment_date[minute]">
     <option value="0">00</option>
     <option value="15">15</option>
     <option value="30">30</option>

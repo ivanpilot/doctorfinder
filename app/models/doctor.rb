@@ -22,7 +22,7 @@ class Doctor < ActiveRecord::Base
     appointments = self.meetings_all.collect do |meeting|
       meeting.appointment
     end
-    appointments.sort_by {|appointment| appointment.details[:start]}
+    appointments#.sort_by {|appointment| appointment.details[:start]}
   end
 
   def appointments_with_patient(patient)

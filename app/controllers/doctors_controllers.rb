@@ -41,13 +41,7 @@ class DoctorsController < ApplicationController
   end
 
   post "/doctors/:slug/appointment_new" do
-    year = params[:year].to_i
-    month = params[:month].to_i
-    day = params[:day].to_i
-    hour = params[:hour].to_i
-    minute = params[:minute].to_i
-
-    appointment = Appointment.new(start: DateTime.new(year, month, day, hour, minute), end: DateTime.new(year, month, day, hour + 1, minute))
+    appointment = Appointment.instantiate_appointment(params[:appointment_date])
 
     if current_doctor_user.slot_taken?(appointment) || params[:patient_name].empty?
       redirect to "/doctors/#{current_doctor_user.slug}/appointment_new"
@@ -79,7 +73,7 @@ class DoctorsController < ApplicationController
     hour = params[:hour].to_i
     minute = params[:minute].to_i
 
-    appointment_new = Appointment.new(start: DateTime.new(year, month, day, hour, minute), end: DateTime.new(year, month, day, hour + 1, minute))
+    appointment_new = Appointment.instantiate_appointment(params[:appointment_date])
 
     if current_doctor_user.slot_taken?(appointment_new)
       redirect to "/doctors/#{current_doctor_user.slug}/appointments/#{appointment.id}/edit"
