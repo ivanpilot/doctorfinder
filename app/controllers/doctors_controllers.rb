@@ -80,4 +80,20 @@ class DoctorsController < ApplicationController
     redirect to "/doctors/#{current_doctor_user.slug}/home"
   end
 
+  delete "/doctors/:slug/appointments/:id/delete" do
+    appointment = Appointment.find(params[:id])
+    if current_doctor_user.appointments_coming.include?(appointment)
+      appointment.cancel_appointment
+    end
+      redirect to "/"
+  end
+
+  get "/doctors/:slug/appointments_history" do
+    if is_logged_in? && user_type? == "doctor"
+      erb :'doctors/appointment_history'
+    else
+      redirect to "/"
+    end
+  end
+
 end

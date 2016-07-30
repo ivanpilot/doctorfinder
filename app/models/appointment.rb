@@ -37,15 +37,4 @@ class Appointment < ActiveRecord::Base
     self.delete
   end
 
-  # def update_appointment
-  #   self.cancel_appointment
-  #
-  # end
-
-  ##############_______PRIVATE_______##############
-
-  # def convert_hash_keys_to_sym(hash)
-  #   hash.each
-  # end
-
 end
