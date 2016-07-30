@@ -96,4 +96,15 @@ class DoctorsController < ApplicationController
     end
   end
 
+  get "/doctors/:slug_doctor/patients/:slug_patient" do
+    if is_logged_in? && user_type? == "doctor"
+      @doctor = Doctor.find_by_slug(params[:slug_doctor])
+      @patient = Patient.find_by_slug(params[:slug_patient])
+      @appointments = @doctor.appointments_with_patient(@patient)
+      erb :"doctors/patient_appointments"
+    else
+      redirect to "/"
+    end
+  end
+
 end

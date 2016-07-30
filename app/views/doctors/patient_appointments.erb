@@ -1,4 +1,4 @@
-<h1>Your Appointment's History</h1>
+<h1>All your appointments with the patient: <%= @patient.name %></h1>
 
 <a href="/doctors/<%=current_doctor_user.slug%>/home">Home</a>
 <br>
@@ -13,11 +13,11 @@
 <br></br>
 
   <ol>
-    <% current_doctor_user.appointments_history.each do |appointment| %>
+    <% current_doctor_user.appointments_with_patient(@patient).each do |appointment| %>
       <li> <%=appointment.details[:start].strftime('%A')%> <%=appointment.details[:start].strftime('%v')%> at <%=appointment.details[:start].strftime('%R')%></li>
       <% appointment.details[:patients].each do |patient| %>
         <ul>
-          <li>Patient: <a href="/doctors/<%=current_doctor_user.slug%>/patients/<%=patient.slug%>"><%= patient.name %></a></li>
+          <li>Patient: <%= patient.name %></li>
         </ul>
       <% end %>
       <br></br>

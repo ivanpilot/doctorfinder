@@ -18,7 +18,7 @@
       <li> <%=appointment.details[:start].strftime('%A')%> <%=appointment.details[:start].strftime('%v')%> at <%=appointment.details[:start].strftime('%R')%></li>
       <% appointment.details[:patients].each do |patient| %>
         <ul>
-          <li>Patient: <%= patient.name %></li>
+          <li>Patient: <a href="/doctors/<%=current_doctor_user.slug%>/patients/<%=patient.slug%>"><%= patient.name %></a></li>
         </ul>
       <% end %>
       <br>
