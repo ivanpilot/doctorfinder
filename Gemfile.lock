@@ -12,7 +12,7 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    arel (7.1.0)
+    arel (7.1.1)
     bcrypt (3.1.11)
     bond (0.5.1)
     coderay (1.1.1)
@@ -25,6 +25,8 @@ GEM
       method_source (~> 0.8.1)
       slop (~> 3.4)
     rack (1.6.4)
+    rack-flash3 (1.0.5)
+      rack
     rack-protection (1.5.3)
       rack
     rack-test (0.6.3)
@@ -67,6 +69,7 @@ DEPENDENCIES
   activerecord
   bcrypt
   pry
+  rack-flash3
   rake
   require_all
   shotgun

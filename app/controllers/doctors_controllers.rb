@@ -29,6 +29,7 @@ class DoctorsController < ApplicationController
     doctor = Doctor.find_by_slug(params[:slug])
     doctor.update(params[:doctor])
     doctor.save
+    flash[:notice] = "Successfully updated your profile." ######OK
     redirect to "/doctors/#{doctor.slug}/profile"
   end
 
@@ -41,16 +42,16 @@ class DoctorsController < ApplicationController
   end
 
   post "/doctors/:slug/appointment_new" do
-    appointment = Appointment.instantiate_appointment(params[:appointment_date])
+    appointment = Appointment.instantiate_appointment(params[:appointment_date]) #####OK
 
     if current_doctor_user.slot_taken?(appointment) || params[:patient_name].empty?
-      redirect to "/doctors/#{current_doctor_user.slug}/appointment_new"
-      ######## SHOW A BOX DIALOGUE !!!!!!!!!!!!!!
+      flash[:notice] = "This slot is already taken. Please choose another slot."
+      redirect to "/doctors/#{current_doctor_user.slug}/appointment_new"########ok
     else
       appointment.save
       current_doctor_user.book_appointment_with_patient(appointment, params[:patient_name])
     end
-
+    flash[:notice] = "Successfully booked an appointment."
     redirect to "/doctors/#{current_doctor_user.slug}/home"
   end
 
@@ -69,14 +70,14 @@ class DoctorsController < ApplicationController
     appointment_new = Appointment.instantiate_appointment(params[:appointment_date])
 
     if current_doctor_user.slot_taken?(appointment_new)
+      flash[:notice] = "This slot is already taken. Please choose another slot."
       redirect to "/doctors/#{current_doctor_user.slug}/appointments/#{appointment_old.id}/edit"
-      ######## SHOW A BOX DIALOGUE !!!!!!!!!!!!!!
     else
       appointment_old.cancel_appointment
       appointment_new.save
       current_doctor_user.book_appointment_with_patient(appointment_new, patient_name)
     end
-
+    flash[:notice] = "Successfully updated your appointment."
     redirect to "/doctors/#{current_doctor_user.slug}/home"
   end
 
@@ -85,6 +86,7 @@ class DoctorsController < ApplicationController
     if current_doctor_user.appointments_coming.include?(appointment)
       appointment.cancel_appointment
     end
+      flash[:notice] = "Successfully cancelled appointment."
       redirect to "/"
   end
 

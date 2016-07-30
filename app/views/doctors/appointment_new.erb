@@ -59,3 +59,7 @@
 
   <input type="submit" value="Create Appointment">
 </form>
+
+<% if flash.has?(:notice) %>
+  <h2><%= flash[:notice] %></h2>
+<% end %>
