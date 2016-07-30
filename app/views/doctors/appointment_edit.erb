@@ -1,5 +1,8 @@
 <h1>Update Your Appointment</h1>
 
+<a href="/doctors/<%=current_doctor_user.slug%>/home">Home</a>
+<br>
+
 <a href="/doctors/<%=current_doctor_user.slug%>/appointment_new">New Appointment</a>
 <br>
 
@@ -8,6 +11,9 @@
 
 <a href="/doctors/<%=current_doctor_user.slug%>/profile">Profile</a>
 <br>
+
+<a href="/logout">Log Out</a>
+<br></br>
 
 <form action="/doctors/<%=current_doctor_user.slug%>/appointments/<%=@appointment.id%>/edit" method="post">
   <input id="hidden" type="hidden" name="_method" value="patch">

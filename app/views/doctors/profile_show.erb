@@ -1,5 +1,17 @@
 <h1>Your Profile</h1>
 
+<a href="/doctors/<%=current_doctor_user.slug%>/home">Home</a>
+<br>
+
+<a href="/doctors/<%=current_doctor_user.slug%>/appointment_new">New Appointment</a>
+<br>
+
+<a href="/doctors/<%=current_doctor_user.slug%>/appointments_history">Appointment History</a>
+<br>
+
+<a href="/logout">Log Out</a>
+<br></br>
+
 <h3>Name: <%= current_doctor_user.name %></h3>
 <p>Email: <%= current_doctor_user.email %></p>
 <p>Specialties:
@@ -8,6 +20,4 @@
   <% end %>
 </p>
 
-<a href="/<%=current_doctor_user.user_type.pluralize%>/<%=current_doctor_user.slug%>/profile/edit">Edit</a>
-<a href="/doctors/<%=current_doctor_user.slug%>/home">Home</a>
-<a href="/logout">Log Out</a>
+<a href="/<%=current_doctor_user.user_type.pluralize%>/<%=current_doctor_user.slug%>/profile/edit">Edit Profile</a>
