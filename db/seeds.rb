@@ -14,4 +14,4 @@ Patient.create(name: "patient", email: "patient@gmail.com", password: "patient")
 # Patient.create(name: "Anna", email: "anna@gmail.com", password: "anna")
 # Patient.create(name: "John", email: "john@gmail.com", password: "john")
 
-Appointment.new(start: DateTime.new(2016, 8, 20, 13, 30), end: DateTime.new(2016, 8, 20, 14, 30))
+# Appointment.new(start: DateTime.new(2016, 8, 20, 13, 30), end: DateTime.new(2016, 8, 20, 14, 30))

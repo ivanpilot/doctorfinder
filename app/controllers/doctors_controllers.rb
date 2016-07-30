@@ -41,6 +41,7 @@ class DoctorsController < ApplicationController
   end
 
   post "/doctors/:slug/appointment_new" do
+    # binding.pry
     appointment = Appointment.instantiate_appointment(params[:appointment_date])
 
     if current_doctor_user.slot_taken?(appointment) || params[:patient_name].empty?
@@ -64,24 +65,27 @@ class DoctorsController < ApplicationController
   end
 
   patch "/doctors/:slug/appointments/:id/edit" do
+    puts ""
+    puts ""
+    puts ""
+    puts "#{params}"
+    puts ""
+    puts ""
+    puts ""
+
     appointment_old = Appointment.find(params[:id])
     patient_name = appointment_old.details[:patients].first.name
-
-    year = params[:year].to_i
-    month = params[:month].to_i
-    day = params[:day].to_i
-    hour = params[:hour].to_i
-    minute = params[:minute].to_i
 
     appointment_new = Appointment.instantiate_appointment(params[:appointment_date])
 
     if current_doctor_user.slot_taken?(appointment_new)
-      redirect to "/doctors/#{current_doctor_user.slug}/appointments/#{appointment.id}/edit"
+      redirect to "/doctors/#{current_doctor_user.slug}/appointments/#{appointment_old.id}/edit"
       ######## SHOW A BOX DIALOGUE !!!!!!!!!!!!!!
     else
-      appointment_old.delete ########CREATE A PROBLEM ___________
+      appointment_old.cancel_appointment
+      # binding.pry
       appointment_new.save
-      current_doctor_user.book_appointment_with_patient(appointment, patient_name)
+      current_doctor_user.book_appointment_with_patient(appointment_new, patient_name)
     end
 
     redirect to "/doctors/#{current_doctor_user.slug}/home"

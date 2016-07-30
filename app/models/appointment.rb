@@ -5,13 +5,14 @@ class Appointment < ActiveRecord::Base
 
   ##############_______PUBLIC_______##############
 
-  def self.instantiate_appointment(year:, month:, day:, hour:, minute:)
-    year_i = year.to_i
-    month_i = month.to_i
-    day_i = day.to_i
-    hour_i = hour.to_i
-    minute_i = minute.to_i
-    Appointment.new(start: DateTime.new(year_i, month_i, day_i, hour_i, minute_i), end: DateTime.new(year_i, month_i, day_i, hour_i + 1, minute_i))
+  def self.instantiate_appointment(params)
+    # hash = Hash[hash.collect{|k,v| [k.to_sym, v.to_i]}]
+    year = params["year"].to_i
+    month = params["month"].to_i
+    day = params["day"].to_i
+    hour = params["hour"].to_i
+    minute = params["minute"].to_i
+    Appointment.new(start: DateTime.new(year, month, day, hour, minute), end: DateTime.new(year, month, day, hour + 1, minute))
   end
 
   def details
@@ -29,5 +30,22 @@ class Appointment < ActiveRecord::Base
     end
     appointment_details
   end
+
+  def cancel_appointment
+    meeting = Meeting.find_by(appointment_id: self.id)
+    meeting.delete
+    self.delete
+  end
+
+  # def update_appointment
+  #   self.cancel_appointment
+  #
+  # end
+
+  ##############_______PRIVATE_______##############
+
+  # def convert_hash_keys_to_sym(hash)
+  #   hash.each
+  # end
 
 end
