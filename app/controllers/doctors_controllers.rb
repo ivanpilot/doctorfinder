@@ -41,7 +41,6 @@ class DoctorsController < ApplicationController
   end
 
   post "/doctors/:slug/appointment_new" do
-    # binding.pry
     appointment = Appointment.instantiate_appointment(params[:appointment_date])
 
     if current_doctor_user.slot_taken?(appointment) || params[:patient_name].empty?
@@ -65,17 +64,8 @@ class DoctorsController < ApplicationController
   end
 
   patch "/doctors/:slug/appointments/:id/edit" do
-    puts ""
-    puts ""
-    puts ""
-    puts "#{params}"
-    puts ""
-    puts ""
-    puts ""
-
     appointment_old = Appointment.find(params[:id])
     patient_name = appointment_old.details[:patients].first.name
-
     appointment_new = Appointment.instantiate_appointment(params[:appointment_date])
 
     if current_doctor_user.slot_taken?(appointment_new)
@@ -83,7 +73,6 @@ class DoctorsController < ApplicationController
       ######## SHOW A BOX DIALOGUE !!!!!!!!!!!!!!
     else
       appointment_old.cancel_appointment
-      # binding.pry
       appointment_new.save
       current_doctor_user.book_appointment_with_patient(appointment_new, patient_name)
     end
