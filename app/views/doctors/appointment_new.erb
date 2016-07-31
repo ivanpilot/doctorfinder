@@ -6,12 +6,16 @@
 <a href="/doctors/<%=current_doctor_user.slug%>/appointment_history">Appointment History</a>
 <br>
 
-
 <a href="/doctors/<%=current_doctor_user.slug%>/profile">Profile</a>
 <br>
 
 <a href="/logout">Log Out</a>
 <br>
+
+<% if flash.has?(:notice) %>
+  <h3><%= flash[:notice] %></h3>
+<% end %>
+<br></br>
 
 <form action="/doctors/<%=current_doctor_user.slug%>/appointment_new" method="post">
   <h2>Patient Name</h2>

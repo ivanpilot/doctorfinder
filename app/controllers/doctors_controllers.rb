@@ -11,7 +11,6 @@ class DoctorsController < ApplicationController
 
   get "/doctors/:slug/profile" do
     if is_logged_in? && user_type? == "doctor"
-        # binding.pry
       erb :'doctors/profile_show'
     else
       redirect to "/"
@@ -30,9 +29,7 @@ class DoctorsController < ApplicationController
     doctor = Doctor.find_by_slug(params[:slug])
     doctor.update(params[:doctor])
     doctor.save
-    flash[:notice] = "Successfully updated your profile." ######OK
-    # @flash = flash[:notice]
-    # binding.pry
+    flash[:notice] = "Your profile has been updated."
     redirect to "/doctors/#{doctor.slug}/profile"
   end
 
@@ -45,16 +42,16 @@ class DoctorsController < ApplicationController
   end
 
   post "/doctors/:slug/appointment_new" do
-    appointment = Appointment.instantiate_appointment(params[:appointment_date]) #####OK
+    appointment = Appointment.instantiate_appointment(params[:appointment_date])
 
     if current_doctor_user.slot_taken?(appointment) || params[:patient_name].empty?
       flash[:notice] = "This slot is already taken. Please choose another slot."
-      redirect to "/doctors/#{current_doctor_user.slug}/appointment_new"########ok
+      redirect to "/doctors/#{current_doctor_user.slug}/appointment_new"
     else
       appointment.save
       current_doctor_user.book_appointment_with_patient(appointment, params[:patient_name])
     end
-    flash[:notice] = "Successfully booked an appointment."
+    flash[:notice] = "Your appontment with #{params[:patient_name]} is booked."
     redirect to "/doctors/#{current_doctor_user.slug}/home"
   end
 
@@ -80,7 +77,7 @@ class DoctorsController < ApplicationController
       appointment_new.save
       current_doctor_user.book_appointment_with_patient(appointment_new, patient_name)
     end
-    flash[:notice] = "Successfully updated your appointment."
+    flash[:notice] = "Your appontment with #{params[:patient_name]} has been rescheduled."
     redirect to "/doctors/#{current_doctor_user.slug}/home"
   end
 
@@ -89,7 +86,7 @@ class DoctorsController < ApplicationController
     if current_doctor_user.appointments_coming.include?(appointment)
       appointment.cancel_appointment
     end
-      flash[:notice] = "Successfully cancelled appointment."
+      flash[:notice] = "Your appointment has been cancelled."
       redirect to "/"
   end
 

@@ -12,6 +12,11 @@
 <a href="/logout">Log Out</a>
 <br></br>
 
+<% if flash.has?(:notice) %>
+  <h3><%= flash[:notice] %></h3>
+<% end %>
+<br></br>
+
 <h2>Your Coming Appointments</h2>
   <ol>
     <% current_doctor_user.appointments_coming.each do |appointment| %>
@@ -32,7 +37,3 @@
       <br></br>
     <% end %>
   </ol>
-
-  <% if flash.has?(:notice) %>
-    <h2><%= flash[:notice] %></h2>
-  <% end %>
