@@ -11,6 +11,7 @@ class DoctorsController < ApplicationController
 
   get "/doctors/:slug/profile" do
     if is_logged_in? && user_type? == "doctor"
+        # binding.pry
       erb :'doctors/profile_show'
     else
       redirect to "/"
@@ -30,6 +31,8 @@ class DoctorsController < ApplicationController
     doctor.update(params[:doctor])
     doctor.save
     flash[:notice] = "Successfully updated your profile." ######OK
+    # @flash = flash[:notice]
+    # binding.pry
     redirect to "/doctors/#{doctor.slug}/profile"
   end
 

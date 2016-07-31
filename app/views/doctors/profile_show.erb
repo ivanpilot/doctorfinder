@@ -22,6 +22,4 @@
 
 <a href="/<%=current_doctor_user.user_type.pluralize%>/<%=current_doctor_user.slug%>/profile/edit">Edit Profile</a>
 
-<% if flash.has?(:notice) %>
   <h2><%= flash[:notice] %></h2>
-<% end %>
