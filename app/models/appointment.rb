@@ -12,7 +12,11 @@ class Appointment < ActiveRecord::Base
     day = params["day"].to_i
     hour = params["hour"].to_i
     minute = params["minute"].to_i
-    Appointment.new(start: DateTime.new(year, month, day, hour, minute), end: DateTime.new(year, month, day, hour + 1, minute))
+
+    # minute_end = minute == 0 ? 59 : minute - 1
+    hour_end = minute == 0 ? hour : hour + 1
+
+    Appointment.new(start: DateTime.new(year, month, day, hour, minute), end: DateTime.new(year, month, day, hour_end, minute - 1))
   end
 
   def details

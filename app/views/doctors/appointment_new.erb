@@ -15,7 +15,7 @@
 <% if flash.has?(:notice) %>
   <h3><%= flash[:notice] %></h3>
 <% end %>
-<br></br>
+<br>
 
 <form action="/doctors/<%=current_doctor_user.slug%>/appointment_new" method="post">
   <h2>Patient Name</h2>

@@ -51,7 +51,7 @@ class DoctorsController < ApplicationController
       appointment.save
       current_doctor_user.book_appointment_with_patient(appointment, params[:patient_name])
     end
-    flash[:notice] = "Your appontment with #{params[:patient_name]} is booked."
+    flash[:notice] = "Your appointment with #{params[:patient_name]} is booked."
     redirect to "/doctors/#{current_doctor_user.slug}/home"
   end
 
@@ -77,7 +77,7 @@ class DoctorsController < ApplicationController
       appointment_new.save
       current_doctor_user.book_appointment_with_patient(appointment_new, patient_name)
     end
-    flash[:notice] = "Your appontment with #{params[:patient_name]} has been rescheduled."
+    flash[:notice] = "Your appointment with #{patient_name} has been rescheduled."
     redirect to "/doctors/#{current_doctor_user.slug}/home"
   end
 

@@ -13,12 +13,12 @@
 <br>
 
 <a href="/logout">Log Out</a>
-<br></br>
+<br>
 
 <% if flash.has?(:notice) %>
   <h3><%= flash[:notice] %></h3>
 <% end %>
-<br></br>
+<br>
 
 <form action="/doctors/<%=current_doctor_user.slug%>/appointments/<%=@appointment.id%>/edit" method="post">
   <input id="hidden" type="hidden" name="_method" value="patch">

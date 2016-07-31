@@ -10,7 +10,12 @@
 <br>
 
 <a href="/logout">Log Out</a>
-<br></br>
+<br>
+
+<% if flash.has?(:notice) %>
+  <h3><%= flash[:notice] %></h3>
+<% end %>
+<br>
 
 <h3>Name: <%= current_doctor_user.name %></h3>
 <p>Email: <%= current_doctor_user.email %></p>
@@ -21,7 +26,3 @@
 </p>
 
 <a href="/<%=current_doctor_user.user_type.pluralize%>/<%=current_doctor_user.slug%>/profile/edit">Edit Profile</a>
-
-<% if flash.has?(:notice) %>
-  <h3><%= flash[:notice] %></h3>
-<% end %>
