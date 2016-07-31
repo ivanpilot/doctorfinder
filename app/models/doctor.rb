@@ -70,25 +70,25 @@ class Doctor < ActiveRecord::Base
 
   ##############_______PRIVATE_______##############
 
-  def relationship_with_patient(patient)
-    self.doctor_patients.find_by(patient_id: patient.id)
-  end
-
-  def meetings_with_patient(patient)
-    relationship = self.relationship_with_patient(patient)
-    self.meetings_all.select do |meeting|
-      meeting.doctor_patient_id == relationship.id
-    end
-  end
-
-  def meetings_all
-    meetings = []
-    self.doctor_patients.each do |doctor_patient|
-      doctor_patient.meetings.each do |meeting|
-        meetings << meeting
-      end
-    end
-    meetings
-  end
+  # def relationship_with_patient(patient)
+  #   self.doctor_patients.find_by(patient_id: patient.id)
+  # end
+  #
+  # def meetings_with_patient(patient)
+  #   relationship = self.relationship_with_patient(patient)
+  #   self.meetings_all.select do |meeting|
+  #     meeting.doctor_patient_id == relationship.id
+  #   end
+  # end
+  #
+  # def meetings_all
+  #   meetings = []
+  #   self.doctor_patients.each do |doctor_patient|
+  #     doctor_patient.meetings.each do |meeting|
+  #       meetings << meeting
+  #     end
+  #   end
+  #   meetings
+  # end
 
 end
