@@ -29,7 +29,18 @@ class PatientsController < ApplicationController
     patient = Patient.find_by_slug(params[:slug])
     patient.update(params[:patient])
     patient.save
+    flash[:notice] = "Your profile has been updated."
     redirect to "/patients/#{patient.slug}/profile"
   end
+
+  get "/patients/:slug/appointment_new" do
+    if is_logged_in? && user_type? == "patient"
+      erb :'patients/appointment_new'
+    else
+      redirect to "/"
+    end
+  end
+
+  
 
 end

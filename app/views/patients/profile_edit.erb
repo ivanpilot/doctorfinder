@@ -1,5 +1,17 @@
 <h1>Your Profile</h1>
 
+<a href="/patients/<%=current_patient_user.slug%>/home">Home</a>
+<br>
+
+<a href="/patients/<%=current_patient_user.slug%>/appointment_new">New Appointment</a>
+<br>
+
+<a href="/patients/<%=current_patient_user.slug%>/appointments_history">Appointment History</a>
+<br>
+
+<a href="/logout">Log Out</a>
+<br></br>
+
 <form action="/patients/<%=current_patient_user.slug%>/profile/edit" method="post">
   <input id="hidden" type="hidden" name="_method" value="patch">
 

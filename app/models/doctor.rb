@@ -3,7 +3,6 @@ class Doctor < ActiveRecord::Base
   extend Displayable::ClassMethods
   include Displayable::InstanceMethods
 
-
   has_many :doctor_patients
   has_many :patients, through: :doctor_patients
 

@@ -1,9 +1,25 @@
 <h1>Your Profile</h1>
 
+<a href="/patients/<%=current_patient_user.slug%>/home">Home</a>
+<br>
+
+<a href="/patients/<%=current_patient_user.slug%>/appointment_new">New Appointment</a>
+<br>
+
+<a href="/patients/<%=current_patient_user.slug%>/appointments_history">Appointment History</a>
+<br>
+
+<a href="/logout">Log Out</a>
+<br>
+
+<% if flash.has?(:notice) %>
+  <h3><%= flash[:notice] %></h3>
+<% end %>
+<br>
+
+
 <h3>Name: <%= current_patient_user.name %></h3>
 <p>Email: <%= current_patient_user.email %></p>
 
 
-<a href="/<%=current_patient_user.user_type.pluralize%>/<%=current_patient_user.slug%>/profile/edit">Edit</a>
-<a href="/patients/<%=current_patient_user.slug%>/home">Home</a>
-<a href="/logout">Log Out</a>
+<a href="/<%=current_patient_user.user_type.pluralize%>/<%=current_patient_user.slug%>/profile/edit">Edit Profile</a>
