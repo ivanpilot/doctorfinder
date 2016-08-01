@@ -41,6 +41,18 @@ class PatientsController < ApplicationController
     end
   end
 
-  
+  post "/patients/:slug/appointment_new" do
+    appointment = Appointment.instantiate_appointment(params[:appointment_date])
+
+    if current_doctor_user.slot_taken?(appointment) || params[:patient_name].empty?
+      flash[:notice] = "This slot is already taken. Please choose another slot."
+      redirect to "/doctors/#{current_doctor_user.slug}/appointment_new"
+    else
+      appointment.save
+      current_doctor_user.book_appointment_with_patient(appointment, params[:patient_name])
+    end
+    flash[:notice] = "Your appointment with #{params[:patient_name]} is booked."
+    redirect to "/patients/#{current_patient_user.slug}/home"
+  end
 
 end

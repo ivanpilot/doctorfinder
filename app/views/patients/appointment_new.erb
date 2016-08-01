@@ -1,12 +1,12 @@
 <h1>Create a New Appointment</h1>
 
-<a href="/doctors/<%=current_doctor_user.slug%>/home">Home</a>
+<a href="/patients/<%=current_patient_user.slug%>/home">Home</a>
 <br>
 
-<a href="/doctors/<%=current_doctor_user.slug%>/appointment_history">Appointment History</a>
+<a href="/patients/<%=current_patient_user.slug%>/appointment_history">Appointment History</a>
 <br>
 
-<a href="/doctors/<%=current_doctor_user.slug%>/profile">Profile</a>
+<a href="/patients/<%=current_patient_user.slug%>/profile">Profile</a>
 <br>
 
 <a href="/logout">Log Out</a>
@@ -17,11 +17,25 @@
 <% end %>
 <br>
 
-<form action="/doctors/<%=current_doctor_user.slug%>/appointment_new" method="post">
-  <h2>Patient Name</h2>
-  <p>Name: <input type="text" name="patient_name"></p>
+<form action="/patients/<%=current_patient_user.slug%>/appointment_new" method="post">
+  <h2>Select a Doctor</h2>
+  <%Doctor.all.each do |doctor|%>
+    <label for="<%=doctor.id%>">
+      <%= doctor.name %>
+      <input id="<%=doctor.id%>" type="checkbox" name="doctor[doctor_ids][]" value="<%=doctor.id%>">
+    </label>
+  <% end %>
 
-  <h2>Date</h2>
+
+  <h2>Or Select a Specialty</h2>
+  <%Specialty.all.each do |specialty|%>
+    <label for="<%=specialty.id%>">
+      <%= specialty.name %>
+      <input id="<%=specialty.id%>" type="checkbox" name="doctor[specialty_ids][]" value="<%=specialty.id%>">
+    </label>
+  <% end %>
+
+  <h2>Select a Date</h2>
   Day
   <select name="appointment_date[day]">
     <% for i in 1..31 %>
@@ -63,7 +77,3 @@
 
   <input type="submit" value="Create Appointment">
 </form>
-
-<% if flash.has?(:notice) %>
-  <h2><%= flash[:notice] %></h2>
-<% end %>
