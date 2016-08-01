@@ -16,4 +16,24 @@ class Patient < ActiveRecord::Base
   #   self.all.find {|patient| patient.slug == slug.downcase}
   # end
 
+  # def book_appointment_with_doctor(appointment:, doctor_name: nil, specialty_id: nil)
+    # doctor = Doctor.find_by_name_or_specialty_id(name: doctor_name, specialty_id: specialty_id)
+    #
+    # if doctor.class == Array
+    #   doctor = doctor.first do |doc|
+    #     doc.slot_free?(appointment)
+    #   end
+    # end
+  def book_appointment_with_doctor(appointment:, doctor_name:)
+    doctor = Doctor.find_by(name: doctor_name)
+    if !self.doctors.include?(doctor)
+      self.doctors << doctor
+    end
+
+    doctor_patient = DoctorPatient.find_by(doctor_id: doctor.id, patient_id: self.id)
+    doctor_patient.appointments << appointment
+  end
+
+
+
 end

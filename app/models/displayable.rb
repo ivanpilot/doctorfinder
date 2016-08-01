@@ -60,6 +60,10 @@ module Displayable
       end
     end
 
+    def slot_free?(appointment)
+      !slot_taken?(appointment)
+    end
+
   end
 
   ###########################################################################

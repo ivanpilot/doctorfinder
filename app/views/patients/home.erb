@@ -1,3 +1,38 @@
 <h1>Welcome, <%= current_patient_user.name %></h1>
+<a href="/patients/<%=current_patient_user.slug%>/appointment_new">New Appointment</a>
+<br>
+
+<a href="/patients/<%=current_patient_user.slug%>/appointments_history">Appointment History</a>
+<br>
+
 <a href="/patients/<%=current_patient_user.slug%>/profile">Profile</a>
+<br>
+
 <a href="/logout">Log Out</a>
+<br>
+
+<% if flash.has?(:notice) %>
+  <h3><%= flash[:notice] %></h3>
+<% end %>
+<br>
+
+<h2>Your Coming Appointments</h2>
+  <ol>
+    <% current_patient_user.appointments_coming.each do |appointment| %>
+      <li> <%=appointment.details[:start].strftime('%A')%> <%=appointment.details[:start].strftime('%v')%> at <%=appointment.details[:start].strftime('%R')%></li>
+      <% appointment.details[:doctors].each do |doctor| %>
+        <ul>
+          <li>Doctor: <a href="/patients/<%=current_patient_user.slug%>/doctors/<%=doctor.slug%>"><%= doctor.name %></a></li>
+        </ul>
+      <% end %>
+      <br>
+      <a href="/patients/<%=current_patient_user.slug%>/appointments/<%=appointment.id%>/edit">Modify</a>
+
+      <form action="/patients/<%=current_patient_user.slug%>/appointments/<%=appointment.id%>/delete" method="post">
+        <input id="hidden" type="hidden" name="_method" value="delete">
+        <input type="submit" value="Delete">
+      </form>
+
+      <br></br>
+    <% end %>
+  </ol>

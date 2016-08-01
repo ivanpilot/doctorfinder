@@ -14,6 +14,7 @@
 
 <% if flash.has?(:notice) %>
   <h3><%= flash[:notice] %></h3>
+
 <% end %>
 <br>
 
@@ -22,7 +23,7 @@
   <%Doctor.all.each do |doctor|%>
     <label for="<%=doctor.id%>">
       <%= doctor.name %>
-      <input id="<%=doctor.id%>" type="checkbox" name="doctor[doctor_ids][]" value="<%=doctor.id%>">
+      <input id="<%=doctor.id%>" type="checkbox" name="doctor[name]" value="<%=doctor.name%>">
     </label>
   <% end %>
 
@@ -31,7 +32,7 @@
   <%Specialty.all.each do |specialty|%>
     <label for="<%=specialty.id%>">
       <%= specialty.name %>
-      <input id="<%=specialty.id%>" type="checkbox" name="doctor[specialty_ids][]" value="<%=specialty.id%>">
+      <input id="<%=specialty.id%>" type="checkbox" name="doctor[specialty_id]" value="<%=specialty.id%>">
     </label>
   <% end %>
 

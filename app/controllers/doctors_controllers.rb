@@ -49,7 +49,7 @@ class DoctorsController < ApplicationController
       redirect to "/doctors/#{current_doctor_user.slug}/appointment_new"
     else
       appointment.save
-      current_doctor_user.book_appointment_with_patient(appointment, params[:patient_name])
+      current_doctor_user.book_appointment_with_patient(appointment: appointment, patient_name: params[:patient_name])
     end
     flash[:notice] = "Your appointment with #{params[:patient_name]} is booked."
     redirect to "/doctors/#{current_doctor_user.slug}/home"
@@ -75,7 +75,7 @@ class DoctorsController < ApplicationController
     else
       appointment_old.cancel_appointment
       appointment_new.save
-      current_doctor_user.book_appointment_with_patient(appointment_new, patient_name)
+      current_doctor_user.book_appointment_with_patient(appointment: appointment_new, patient_name: patient_name)
     end
     flash[:notice] = "Your appointment with #{patient_name} has been rescheduled."
     redirect to "/doctors/#{current_doctor_user.slug}/home"

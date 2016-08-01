@@ -44,15 +44,41 @@ class PatientsController < ApplicationController
   post "/patients/:slug/appointment_new" do
     appointment = Appointment.instantiate_appointment(params[:appointment_date])
 
-    if current_doctor_user.slot_taken?(appointment) || params[:patient_name].empty?
-      flash[:notice] = "This slot is already taken. Please choose another slot."
-      redirect to "/doctors/#{current_doctor_user.slug}/appointment_new"
+    if params[:doctor]
+      doctor = Doctor.find_by_name_or_specialty_id(name: params[:doctor][:name], specialty_id: params[:doctor][:specialty_id])
+      if doctor.class == Array
+        doctor = doctor.first {|doc| doc.slot_free?(appointment)}
+      end
+
+      if doctor.slot_free?(appointment)
+        appointment.save
+        current_patient_user.book_appointment_with_doctor(appointment: appointment, doctor_name: doctor.name)
+        redirect to "/patients/#{current_patient_user.slug}/home"
+      else
+        flash[:notice] = "We are sorry but there is no availability for this specific specialist with such a date and time."
+        redirect to "/patients/#{current_patient_user.slug}/appointment_new"
+      end
+
     else
-      appointment.save
-      current_doctor_user.book_appointment_with_patient(appointment, params[:patient_name])
+      flash[:notice] = "Please select a doctor either by name or specialty to book an appointment."
+      redirect to "/patients/#{current_patient_user.slug}/appointment_new"
     end
-    flash[:notice] = "Your appointment with #{params[:patient_name]} is booked."
-    redirect to "/patients/#{current_patient_user.slug}/home"
   end
+  # params = {
+  #   "doctor"=>{
+  #     "name"=>"doctor",
+  #     "specialty"=>"1"
+  #   },
+  #   "appointment_date"=>{
+  #     "day"=>"3",
+  #     "month"=>"11",
+  #     "year"=>"2016",
+  #     "hour"=>"8",
+  #     "minute"=>"0"
+  #   },
+  #   "splat"=>[],
+  #   "captures"=>["patient"],
+  #   "slug"=>"patient"
+  # }
 
 end

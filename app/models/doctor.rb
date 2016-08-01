@@ -53,7 +53,7 @@ class Doctor < ActiveRecord::Base
   #   end
   # end
 
-  def book_appointment_with_patient(appointment, patient_name)
+  def book_appointment_with_patient(appointment:, patient_name:)
     patient = Patient.find_by(name: patient_name)
     if !patient
       patient = Patient.create(name: patient_name, password: patient_name)
@@ -65,6 +65,22 @@ class Doctor < ActiveRecord::Base
 
     doctor_patient = DoctorPatient.find_by(doctor_id: self.id, patient_id: patient.id)
     doctor_patient.appointments << appointment
+  end
+
+  def self.find_by_specialty_id(specialty_id:)
+    Doctor.all.select do |doctor|
+      doctor.specialty_ids.include?(specialty_id)
+    end
+  end
+
+  def self.find_by_name_or_specialty_id(name: nil, specialty_id: nil)
+    name == nil ? self.find_by_specialty_id(specialty_id: specialty_id) : self.find_by(name: name)
+  end
+
+  def self.available?(appointment)
+    self.all.select do |doctor|
+      !doctor.slot_taken?(appointment)
+    end
   end
 
   ##############_______PRIVATE_______##############
