@@ -46,8 +46,14 @@ class PatientsController < ApplicationController
 
     if params[:doctor]
       doctor = Doctor.find_by_name_or_specialty_id(name: params[:doctor][:name], specialty_id: params[:doctor][:specialty_id])
+
       if doctor.class == Array
-        doctor = doctor.first {|doc| doc.slot_free?(appointment)}
+        if doctor.empty?
+          flash[:notice] = "We are sorry but there is no available doctors with that specialty."
+          redirect to "/patients/#{current_patient_user.slug}/appointment_new"
+        else
+          doctor = doctor.first {|doc| doc.slot_free?(appointment)}
+        end
       end
 
       if doctor.slot_free?(appointment)
@@ -64,21 +70,24 @@ class PatientsController < ApplicationController
       redirect to "/patients/#{current_patient_user.slug}/appointment_new"
     end
   end
-  # params = {
-  #   "doctor"=>{
-  #     "name"=>"doctor",
-  #     "specialty"=>"1"
-  #   },
-  #   "appointment_date"=>{
-  #     "day"=>"3",
-  #     "month"=>"11",
-  #     "year"=>"2016",
-  #     "hour"=>"8",
-  #     "minute"=>"0"
-  #   },
-  #   "splat"=>[],
-  #   "captures"=>["patient"],
-  #   "slug"=>"patient"
-  # }
+
+
 
 end
+
+# params = {
+#   "doctor"=>{
+#     "name"=>"doctor",
+#     "specialty"=>"1"
+#   },
+#   "appointment_date"=>{
+#     "day"=>"3",
+#     "month"=>"11",
+#     "year"=>"2016",
+#     "hour"=>"8",
+#     "minute"=>"0"
+#   },
+#   "splat"=>[],
+#   "captures"=>["patient"],
+#   "slug"=>"patient"
+# }

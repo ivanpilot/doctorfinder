@@ -77,11 +77,11 @@ class Doctor < ActiveRecord::Base
     name == nil ? self.find_by_specialty_id(specialty_id: specialty_id) : self.find_by(name: name)
   end
 
-  def self.available?(appointment)
-    self.all.select do |doctor|
-      !doctor.slot_taken?(appointment)
-    end
-  end
+  # def self.available?(appointment)
+  #   self.all.select do |doctor|
+  #     !doctor.slot_taken?(appointment)
+  #   end
+  # end
 
   ##############_______PRIVATE_______##############
 
