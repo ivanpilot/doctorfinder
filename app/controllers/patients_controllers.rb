@@ -71,6 +71,14 @@ class PatientsController < ApplicationController
     end
   end
 
+  get "/patients/:slug/appointments_history" do
+    if is_logged_in? && user_type? == "patient"
+      erb :'patients/appointment_history'
+    else
+      redirect to "/"
+    end
+  end
+
 
 
 end
