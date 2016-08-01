@@ -7,8 +7,7 @@ module Displayable
     end
 
     def relationship_with(user)
-      user_type = user.class == Doctor ? "patient" : "doctor"
-      hash = {(user_type + "_id").to_sym => user.id}
+      hash = {(user.class.to_s.downcase + "_id").to_sym => user.id}
       self.doctor_patients.find_by(hash)
     end
 
@@ -29,6 +28,38 @@ module Displayable
       meetings
     end
 
+    def appointments_all
+      appointments = self.meetings_all.collect do |meeting|
+        meeting.appointment
+      end
+      appointments.sort_by {|appointment| appointment.details[:start]}
+    end
+
+    def appointments_history
+      self.appointments_all.select do |appointment|
+        appointment.details[:end] < DateTime.now
+      end.reverse
+    end
+
+    def appointments_coming
+      self.appointments_all.select do |appointment|
+        appointment.details[:end] > DateTime.now
+      end
+    end
+
+    def appointments_with(user)
+      appointments = self.meetings_with(user).collect do |meeting|
+        meeting.appointment
+      end
+      appointments.sort_by {|appointment| appointment.details[:start]}
+    end
+
+    def slot_taken?(appointment)
+      self.meetings_all.find do |meeting|
+        appointment.start.between?(meeting.appointment.start, meeting.appointment.end)
+      end
+    end
+
   end
 
   ###########################################################################
@@ -38,10 +69,6 @@ module Displayable
     def find_by_slug(slug)
       self.all.find {|user| user.slug == slug.downcase}
     end
-
-
-
-
 
   end
 

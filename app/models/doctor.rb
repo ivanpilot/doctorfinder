@@ -22,37 +22,37 @@ class Doctor < ActiveRecord::Base
   #   self.all.find {|doctor| doctor.slug == slug.downcase}
   # end
 
-  def appointments_all
-    appointments = self.meetings_all.collect do |meeting|
-      meeting.appointment
-    end
-    appointments.sort_by {|appointment| appointment.details[:start]}
-  end
-
-  def appointments_with_patient(patient)
-    appointments = self.meetings_with_patient(patient).collect do |meeting|
-      meeting.appointment
-    end
-    appointments.sort_by {|appointment| appointment.details[:start]}
-  end
-
-  def appointments_history
-    self.appointments_all.select do |appointment|
-      appointment.details[:end] < DateTime.now
-    end.reverse
-  end
-
-  def appointments_coming
-    self.appointments_all.select do |appointment|
-      appointment.details[:end] > DateTime.now
-    end
-  end
-
-  def slot_taken?(appointment)
-    self.meetings_all.find do |meeting|
-      appointment.start.between?(meeting.appointment.start, meeting.appointment.end)
-    end
-  end
+  # def appointments_all
+  #   appointments = self.meetings_all.collect do |meeting|
+  #     meeting.appointment
+  #   end
+  #   appointments.sort_by {|appointment| appointment.details[:start]}
+  # end
+  #
+  # def appointments_with_patient(patient)
+  #   appointments = self.meetings_with_patient(patient).collect do |meeting|
+  #     meeting.appointment
+  #   end
+  #   appointments.sort_by {|appointment| appointment.details[:start]}
+  # end
+  #
+  # def appointments_history
+  #   self.appointments_all.select do |appointment|
+  #     appointment.details[:end] < DateTime.now
+  #   end.reverse
+  # end
+  #
+  # def appointments_coming
+  #   self.appointments_all.select do |appointment|
+  #     appointment.details[:end] > DateTime.now
+  #   end
+  # end
+  #
+  # def slot_taken?(appointment)
+  #   self.meetings_all.find do |meeting|
+  #     appointment.start.between?(meeting.appointment.start, meeting.appointment.end)
+  #   end
+  # end
 
   def book_appointment_with_patient(appointment, patient_name)
     patient = Patient.find_by(name: patient_name)
