@@ -43,7 +43,7 @@ class PatientsController < ApplicationController
 
   post "/patients/:slug/appointment_new" do
     appointment = Appointment.instantiate_appointment(params[:appointment_date])
-binding.pry
+
     if params[:doctor]
       doctor = Doctor.find_by_name_or_specialty_id(name: params[:doctor][:name], specialty_id: params[:doctor][:specialty_id])
 
@@ -110,6 +110,17 @@ binding.pry
   get "/patients/:slug/appointments_history" do
     if is_logged_in? && user_type? == "patient"
       erb :'patients/appointment_history'
+    else
+      redirect to "/"
+    end
+  end
+
+  get "/patients/:slug_patient/doctors/:slug_doctor" do
+    if is_logged_in? && user_type? == "patient"
+      @doctor = Doctor.find_by_slug(params[:slug_doctor])
+      @patient = Patient.find_by_slug(params[:slug_patient])
+      @appointments = @patient.appointments_with(@doctor)
+      erb :"patients/doctor_appointments"
     else
       redirect to "/"
     end

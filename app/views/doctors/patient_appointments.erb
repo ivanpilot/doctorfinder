@@ -13,7 +13,7 @@
 <br></br>
 
   <ol>
-    <% current_doctor_user.appointments_with_patient(@patient).each do |appointment| %>
+    <% current_doctor_user.appointments_with(@patient).each do |appointment| %>
       <li> <%=appointment.details[:start].strftime('%A')%> <%=appointment.details[:start].strftime('%v')%> at <%=appointment.details[:start].strftime('%R')%></li>
       <% appointment.details[:patients].each do |patient| %>
         <ul>
