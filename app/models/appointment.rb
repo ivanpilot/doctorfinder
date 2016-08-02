@@ -17,13 +17,13 @@ class Appointment < ActiveRecord::Base
     Appointment.new(start: DateTime.new(year, month, day, hour, minute), end: DateTime.new(year, month, day, hour_end, minute - 1))
   end
 
-  def self.close?(appointment_1, appointment_2)
-    if appointment_1.start.day == appointment_2.start.day && appointment_1.start.month == appointment_2.start.month && appointment_1.start.year == appointment_2.start.year && appointment_2.start.hour < appointment_1.start.hour + 2
-      true
-    else
-      false
-    end
-  end
+  # def self.close?(appointment_1, appointment_2)
+  #   if appointment_1.start.day == appointment_2.start.day && appointment_1.start.month == appointment_2.start.month && appointment_1.start.year == appointment_2.start.year && (appointment_1.start.hour - appointment_2.start.hour).abs < 2
+  #     true
+  #   else
+  #     false
+  #   end
+  # end
 
   def details
     appointment_details = {

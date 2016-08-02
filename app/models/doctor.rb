@@ -49,7 +49,7 @@ class Doctor < ActiveRecord::Base
   #
   def slot_taken?(appointment)
     self.meetings_all.find do |meeting|
-      appointment.start.between?(meeting.appointment.start, meeting.appointment.end) || (appointment.start < meeting.appointment.start && appointment.end > meeting.appointment.start)
+      appointment.start.between?(meeting.appointment.start, meeting.appointment.end) || appointment.end.between?(meeting.appointment.start, meeting.appointment.end)
     end
   end
 
@@ -57,15 +57,13 @@ class Doctor < ActiveRecord::Base
     !slot_taken?(appointment)
   end
 
-  def slot_taken_except_by_this_patient?(appointment:, patient:)
-    other_patients = self.patients.select {|other_patient| other_patient != patient}
+  def slot_taken_other_than_appointment?(appointment)
+    other_appointments = self.appointments_all.select do |other_appointment|
+      other_appointment.id != appointment.id
+    end
 
-    other_appointments = other_patients.collect do |other_patient|
-      self.appointments_with(other_patient)
-    end.flatten
-
-    other_appointments.find do |other_appointment|
-      appointment.start.between?(other_appointment.start, other_appointment.end) || (appointment.start < other_appointment.start && appointment.end > other_appointment.start)
+    other_appointments.find do |appt|
+      appointment.start.between?(appt.start, appt.end) || appointment.end.between?(appt.start, appt.end)
     end
   end
 

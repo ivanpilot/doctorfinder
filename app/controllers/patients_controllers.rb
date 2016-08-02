@@ -85,13 +85,13 @@ class PatientsController < ApplicationController
     doctor = appointment_old.details[:doctors].first
     appointment_new = Appointment.instantiate_appointment(params[:appointment_date])
 
-    if (Appointment.close?(appointment_old, appointment_new) && !doctor.slot_taken_except_by_this_patient?(appointment: appointment_new, patient: current_patient_user)) ||(!Appointment.close?(appointment_old, appointment_new) && !doctor.slot_taken?(appointment_new))
+    if doctor.slot_taken_other_than_appointment?(appointment_new)
+      flash[:notice] = "The Doctor #{doctor.name} is not available for this slot. Please select another slot."
+      redirect to "/patients/#{current_patient_user.slug}/appointments/#{appointment_old.id}/edit"
+    else
       appointment_old.cancel_appointment
       appointment_new.save
       current_patient_user.book_appointment_with_doctor(appointment: appointment_new, doctor_name: doctor.name)
-    else
-      flash[:notice] = "The Doctor #{doctor.name} is not available for this slot. Please select another slot."
-      redirect to "/patients/#{current_patient_user.slug}/appointments/#{appointment_old.id}/edit"
     end
 
     flash[:notice] = "Your appointment with #{doctor.name} has been rescheduled."
