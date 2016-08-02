@@ -49,7 +49,7 @@ class Doctor < ActiveRecord::Base
   #
   def slot_taken?(appointment)
     self.meetings_all.find do |meeting|
-      appointment.start.between?(meeting.appointment.start, meeting.appointment.end)
+      appointment.start.between?(meeting.appointment.start, meeting.appointment.end) || (appointment.start < meeting.appointment.start && appointment.end > meeting.appointment.start)
     end
   end
 
@@ -65,7 +65,7 @@ class Doctor < ActiveRecord::Base
     end.flatten
 
     other_appointments.find do |other_appointment|
-      appointment.start.between?(other_appointment.start, other_appointment.end)
+      appointment.start.between?(other_appointment.start, other_appointment.end) || (appointment.start < other_appointment.start && appointment.end > other_appointment.start)
     end
   end
 
