@@ -43,7 +43,7 @@ class PatientsController < ApplicationController
 
   post "/patients/:slug/appointment_new" do
     appointment = Appointment.instantiate_appointment(params[:appointment_date])
-
+binding.pry
     if params[:doctor]
       doctor = Doctor.find_by_name_or_specialty_id(name: params[:doctor][:name], specialty_id: params[:doctor][:specialty_id])
 

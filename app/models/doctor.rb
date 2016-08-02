@@ -83,7 +83,7 @@ class Doctor < ActiveRecord::Base
 
   def self.find_by_specialty_id(specialty_id:)
     Doctor.all.select do |doctor|
-      doctor.specialty_ids.include?(specialty_id)
+      doctor.specialty_ids.include?(specialty_id.to_i)
     end
   end
 
