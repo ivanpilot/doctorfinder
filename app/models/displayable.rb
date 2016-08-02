@@ -54,15 +54,15 @@ module Displayable
       appointments.sort_by {|appointment| appointment.details[:start]}
     end
 
-    def slot_taken?(appointment)
-      self.meetings_all.find do |meeting|
-        appointment.start.between?(meeting.appointment.start, meeting.appointment.end)
-      end
-    end
-
-    def slot_free?(appointment)
-      !slot_taken?(appointment)
-    end
+    # def slot_taken?(appointment)
+    #   self.meetings_all.find do |meeting|
+    #     appointment.start.between?(meeting.appointment.start, meeting.appointment.end)
+    #   end
+    # end
+    #
+    # def slot_free?(appointment)
+    #   !slot_taken?(appointment)
+    # end
 
   end
 

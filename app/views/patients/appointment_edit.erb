@@ -1,0 +1,66 @@
+<h1>Update Your Appointment</h1>
+
+<a href="/patients/<%=current_patient_user.slug%>/home">Home</a>
+<br>
+
+<a href="/patients/<%=current_patient_user.slug%>/appointment_new">New Appointment</a>
+<br>
+
+<a href="/patients/<%=current_patient_user.slug%>/appointment_history">Appointment History</a>
+<br>
+
+<a href="/patients/<%=current_patient_user.slug%>/profile">Profile</a>
+<br>
+
+<a href="/logout">Log Out</a>
+<br>
+
+<% if flash.has?(:notice) %>
+  <h3><%= flash[:notice] %></h3>
+<% end %>
+<br>
+
+<form action="/patients/<%=current_patient_user.slug%>/appointments/<%=@appointment.id%>/edit" method="post">
+  <input id="hidden" type="hidden" name="_method" value="patch">
+  <h2>Date</h2>
+  Day
+  <select name="appointment_date[day]">
+    <% for i in 1..31 %>
+      <option value="<%=i%>"><%=i%></option>
+    <% end %>
+  </select>
+
+  Month
+  <select name="appointment_date[month]">
+    <% for i in 1..12 %>
+      <option value="<%=i%>"><%=i%></option>
+    <% end %>
+  </select>
+
+  Year
+  <select name="appointment_date[year]">
+    <% for i in 2016..2018 %>
+      <option value="<%=i%>"><%=i%></option>
+    <% end %>
+  </select>
+  <br></br>
+
+  <h2>Time</h2>
+  Hour
+  <select name="appointment_date[hour]">
+    <% for i in 8..20 %>
+      <option value="<%=i%>"><%=i%></option>
+    <% end %>
+  </select>
+
+  Minute
+  <select name="appointment_date[minute]">
+    <option value="0">00</option>
+    <option value="15">15</option>
+    <option value="30">30</option>
+    <option value="45">45</option>
+  </select>
+  <br></br>
+
+  <input type="submit" value="Update Appointment">
+</form>

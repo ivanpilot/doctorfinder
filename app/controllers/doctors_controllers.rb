@@ -70,7 +70,7 @@ class DoctorsController < ApplicationController
     appointment_new = Appointment.instantiate_appointment(params[:appointment_date])
 
     if current_doctor_user.slot_taken?(appointment_new)
-      flash[:notice] = "This slot is already taken. Please choose another slot."
+      flash[:notice] = "This slot is already taken. Please select another slot."
       redirect to "/doctors/#{current_doctor_user.slug}/appointments/#{appointment_old.id}/edit"
     else
       appointment_old.cancel_appointment

@@ -71,6 +71,32 @@ class PatientsController < ApplicationController
     end
   end
 
+  get "/patients/:slug/appointments/:id/edit" do
+    @appointment = Appointment.find(params[:id])
+    if is_logged_in? && user_type? == "patient" && current_patient_user.appointments_coming.include?(@appointment)
+        erb :'patients/appointment_edit'
+    else
+      redirect to "/"
+    end
+  end
+
+  patch "/patients/:slug/appointments/:id/edit" do
+    appointment_old = Appointment.find(params[:id])
+    doctor = appointment_old.details[:doctors].first
+    appointment_new = Appointment.instantiate_appointment(params[:appointment_date])
+
+    if doctor.slot_taken?(appointment_new)
+      flash[:notice] = "The Doctor #{doctor.name} is not available for this slot. Please select another slot."
+      redirect to "/patients/#{current_patient_user.slug}/appointments/#{appointment_old.id}/edit"
+    else
+      appointment_old.cancel_appointment
+      appointment_new.save
+      current_patient_user.book_appointment_with_doctor(appointment: appointment_new, doctor_name: doctor.name)
+    end
+    flash[:notice] = "Your appointment with #{doctor.name} has been rescheduled."
+    redirect to "/patients/#{current_patient_user.slug}/home"
+  end
+
   get "/patients/:slug/appointments_history" do
     if is_logged_in? && user_type? == "patient"
       erb :'patients/appointment_history'
