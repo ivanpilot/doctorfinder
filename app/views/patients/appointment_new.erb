@@ -19,20 +19,16 @@
 
 <form action="/patients/<%=current_patient_user.slug%>/appointment_new" method="post">
   <h2>Select a Doctor</h2>
-  <%Doctor.all.each do |doctor|%>
-    <label for="<%=doctor.id%>">
-      <%= doctor.name %>
-      <input id="<%=doctor.id%>" type="checkbox" name="doctor[name]" value="<%=doctor.name%>">
-    </label>
+  <% Doctor.all.each do |doctor| %>
+    <label for="<%=doctor.name%>"><%= doctor.name %></label>
+    <input id="<%=doctor.name%>" type="checkbox" name="doctor[id]" value="<%=doctor.id%>">
   <% end %>
 
 
   <h2>Or Select a Specialty</h2>
-  <%Specialty.all.each do |specialty|%>
-    <label for="<%=specialty.id%>">
-      <%= specialty.name %>
-      <input id="<%=specialty.id%>" type="checkbox" name="doctor[specialty_id]" value="<%=specialty.id%>">
-    </label>
+  <% Specialty.all.each do |specialty| %>
+    <label for="<%=specialty.name%>"><%= specialty.name %></label>
+    <input id="<%=specialty.name%>" type="checkbox" name="doctor[specialty_id]" value="<%=specialty.id%>">
   <% end %>
 
   <h2>Select a Date</h2>

@@ -45,7 +45,7 @@ class PatientsController < ApplicationController
     appointment = Appointment.instantiate_appointment(params[:appointment_date])
 
     if params[:doctor]
-      doctor = Doctor.find_by_name_or_specialty_id(name: params[:doctor][:name], specialty_id: params[:doctor][:specialty_id])
+      doctor = Doctor.find_by_id_or_specialty_id(id: params[:doctor][:id], specialty_id: params[:doctor][:specialty_id])
 
       if doctor.class == Array
         if doctor.empty?

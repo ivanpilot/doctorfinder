@@ -53,8 +53,8 @@ class Doctor < ActiveRecord::Base
     end
   end
 
-  def self.find_by_name_or_specialty_id(name: nil, specialty_id: nil)
-    name == nil ? self.find_by_specialty_id(specialty_id: specialty_id) : self.find_by(name: name)
+  def self.find_by_id_or_specialty_id(id: nil, specialty_id: nil)
+    id == nil ? self.find_by_specialty_id(specialty_id: specialty_id) : self.find_by(id: id)
   end
 
 end
