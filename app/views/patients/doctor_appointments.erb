@@ -16,7 +16,7 @@
 <br></br>
 
   <ol>
-    <% current_patient_user.appointments_with(@doctor).each do |appointment| %>
+    <% current_patient_user.appointments_with(@doctor).reverse.each do |appointment| %>
       <li> <%=appointment.details[:start].strftime('%A')%> <%=appointment.details[:start].strftime('%v')%> at <%=appointment.details[:start].strftime('%R')%></li>
       <% appointment.details[:doctors].each do |doctor| %>
         <ul>

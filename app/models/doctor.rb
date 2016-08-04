@@ -23,13 +23,13 @@ class Doctor < ActiveRecord::Base
     !slot_taken?(appointment)
   end
 
-  def slot_taken_other_than_appointment?(appointment)
+  def slot_taken_to_update_appointment?(appointment_old:, appointment_new:)
     other_appointments = self.appointments_all.select do |other_appointment|
-      other_appointment.id != appointment.id
+      other_appointment.id != appointment_old.id
     end
 
     other_appointments.find do |appt|
-      appointment.start.between?(appt.start, appt.end) || appointment.end.between?(appt.start, appt.end)
+      appointment_new.start.between?(appt.start, appt.end) || appointment_new.end.between?(appt.start, appt.end)
     end
   end
 
