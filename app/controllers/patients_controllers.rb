@@ -85,7 +85,6 @@ class PatientsController < ApplicationController
     doctor = appointment_old.details[:doctors].first
     appointment_new = Appointment.instantiate_appointment(params[:appointment_date])
 
-    # if doctor.slot_taken_other_than_appointment?(appointment_old)
     if doctor.slot_taken_to_update_appointment?(appointment_old:appointment_old, appointment_new:appointment_new)
       flash[:notice] = "The Doctor #{doctor.name} is not available for this slot. Please select another slot."
       redirect to "/patients/#{current_patient_user.slug}/appointments/#{appointment_old.id}/edit"
