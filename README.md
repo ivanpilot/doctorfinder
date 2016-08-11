@@ -2,13 +2,14 @@
 
 ## Why is it Amazing?
 
-Find the next doctor available and book an appointment online now
+Find a doctor by name or specialty who is available and book an appointment online now
 
 ## How to use the application?
 
 1. Sign up and create your profile
-2. Go to "Find a Doctor"
-3. Indicate what you need and book an appointment.
+2. Go to "New Appointment"
+3. Indicate what you need and book an appointment
+4. Later on, if needed modify your appointment date and time, or even cancel it directly online
 
 ## How to install the app?
 
