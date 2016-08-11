@@ -1,81 +1,93 @@
-<div class="frame ">
-</div>
-
 <div class="container">
   <div class="container-fluid">
-
-    <div class="row">
-      <section id="login" class="clearfix">
-        <div id="login_field" >
-
-          <!-- <h2>Log In</h2> -->
-          <form action="/login" method="post">
-            <input type="submit" value="Log In">
-            <label for="name">
-              <p><input id="name" type="text" name="name" placeholder="Name"></p>
-            </label>
-
-            <label for="password">
-              <p><input id="password" type="password" name="password" placeholder="Password"></p>
-            </label>
-          </form>
-        </div>
-      </section>
-    </div>
-
-    <div class="row">
-      <section id="title_page" class="title">
-        <h1>Book Your Doctor Online</h1>
-      </section>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-6">
-        <section id="doctor">
-          <h2>Doctor</h2>
-          <form action="/signup/doctors" method="post">
-            <label for="doctor[name]">
-              <p>Name: <input id="doctor[name]" type="text" name="doctor[name]" placeholder="Type your name"></p>
-            </label>
-
-            <label for="doctor[password]">
-              <p>Password: <input id="doctor[password]" type="password" name="doctor[password]" placeholder="Type your password"></p>
-            </label>
-
-            <label for="doctor[email]">
-              <p>Email: <input id="doctor[email]" type="email" name="doctor[email]" placeholder="Type your email"></p>
-            </label>
-
-            <%Specialty.all.each do |specialty|%>
-              <label for="<%=specialty.id%>">
-                <%= specialty.name %>
-                <input id="<%=specialty.id%>" type="checkbox" name="doctor[specialty_ids][]" value="<%=specialty.id%>">
-              </label>
-            <% end %>
-            <br></br>
-            <input type="submit" value="Sign Up">
-          </form>
-        </div>
-      </section>
-
-      <div class="col-sm-6">
-        <section id="patient">
-          <h2>Patient</h2>
-          <form action="/signup/patients" method="post">
-            <label for="patient[name]">
-              <p>Name: <input id="patient[name]" type="text" name="patient[name]" placeholder="Type your name"></p>
-            </label>
-
-            <label for="patient[password]">
-              <p>Password: <input id="patient[password]" type="password" name="patient[password]" placeholder="Type your password"></p>
-            </label>
-
-            <label for="patient[email]">
-              <p>Email: <input id="patient[email]" type="email" name="patient[email]" placeholder="Type your email"></p>
-            </label>
-            <input type="submit" value="Sign Up">
-          </form>
+    <div id="bg">
+      <div class="row">
+        <section id="login" class="clearfix">
+          <div id="login_field" >
+            <form action="/login" method="post">
+              <span id="btn-login"><input type="submit" value="Log In"></span>
+              <span><input id="name" type="text" name="name" placeholder="Name"></span>
+              <span><input id="password" type="password" name="password" placeholder="Password"></span>
+            </form>
+          </div>
         </section>
+      </div>
+
+      <div class="row">
+        <section id="title_page" class="title">
+          <h1>Book Your Doctor Online</h1>
+        </section>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <section id="doctor" class="doctor_patient">
+            <h2>Doctor</h2>
+            <form action="/signup/doctors" method="post">
+              <div class="fields">
+
+                <div class="field">
+                  <label for="doctor[name]"><p>Name</p></label>
+                  <input id="doctor[name]" type="text" name="doctor[name]" placeholder="Type your name">
+                </div>
+
+                <div class="field">
+                  <label for="doctor[password]"><p>Password</p></label>
+                  <input id="doctor[password]" type="password" name="doctor[password]" placeholder="Type your password">
+                </div>
+
+                <div class="field">
+                  <label for="doctor[email]"><p>Email</p></label>
+                  <input id="doctor[email]" type="email" name="doctor[email]" placeholder="Type your email">
+                </div>
+
+                <div class="list">
+                  <%Specialty.all.each do |specialty|%>
+                    <label for="<%=specialty.id%>"><%= specialty.name %></label>
+                    <input id="<%=specialty.id%>" type="checkbox" name="doctor[specialty_ids][]" value="<%=specialty.id%>">
+                  <% end %>
+                  <br></br>
+                </div>
+
+                <div class="signup text-center">
+                  <div class="btn btn-success">
+                    <button type="button"><input type="submit" value="Sign Up"></button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <div class="col-sm-6">
+          <section id="patient" class="doctor_patient">
+            <h2>Patient</h2>
+            <form action="/signup/patients" method="post">
+              <div class="fields">
+                <div class="field">
+                  <label for="patient[name]"><p>Name</p></label>
+                  <input id="patient[name]" type="text" name="patient[name]" placeholder="Type your name">
+                </div>
+
+                <div class="field">
+                  <label for="patient[password]"><p>Password</p></label>
+                  <input id="patient[password]" type="password" name="patient[password]" placeholder="Type your password">
+                </div>
+
+                <div class="field">
+                  <label for="patient[email]"><p>Email</p></label>
+                  <input id="patient[email]" type="email" name="patient[email]" placeholder="Type your email">
+                </div>
+
+                <div class="signup text-center">
+                  <div class="btn btn-success">
+                    <button type="submit"><input type="submit" value="Sign Up"></button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </section>
+        </div>
       </div>
     </div>
   </div>

@@ -1,90 +1,174 @@
 /*////////////////////GENERAL///////////////////////////////*/
 
-html
+html {
+  height: 100%;
+}
 
 body {
-  background: url(../images/medical_background.jpg) no-repeat center;
+  height: 100%;
+  min-height: 100%;
+  background: url(../images/doctor.jpg) no-repeat center center fixed;
   background-size: cover;
-  /*position: absolute;*/
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 800
+  font-size: 100%
 }
 
-section {
-  border: 1px solid black;
-}
+/*section {
+  border: 1px solid white;
+}*/
 
 section h2 {
   text-align: center;
   margin: 1em;
-  /*display: block;*/
-
-}
-
-.frame {
-  /*content: ".";
-  visibility:hidden;*/
-  position: absolute;
-  display: inline-block;
-  top: 0px;
-  height:80px;
-  /*border: 1px solid red;*/
-  width: 100%;
-  background-color: rgba(255,255,255,0.8);
-  z-index: -1;
 }
 
 .container {
-  /*position:absolute;*/
   width: auto;
   max-width: 1080px;
   margin: 0 auto;
 }
 
 .row {
-  /*width: auto;  */
   margin: 0 auto;
 }
 
-
 #login {
-  /*display: inline-block;*/
-  /*position: absolute;*/
-  /*top:0;*/
-  /*background-color: rgba(255,255,255,0.8);*/
   height:80px;
-
-  /*float: right;*/
 }
 
 #login_field {
-  padding-top: 2em;
-  padding-right: 2em;
   float: right;
+  display: inline-block;
+  margin-right: 1px;
+  padding-top: 2em;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1em;
+
 }
 
+#login_field  #name, #password {
+  text-align: center;
+  font-weight: 300;
+  font-style: italic;
+  color:black;
+  border-radius: 20px;
+  border: none;
+  height:2.5em;
+  width: 30%;
+}
+
+#login_field #btn-login input{
+  background-color: transparent;
+  font-weight: 700;
+  text-align: center;
+  color:#FF540D;
+  border-radius: 20px;
+  border: 3px solid #FF540D;
+  height:2.5em;
+  width: 30%;
+}
+
+#login_field #btn-login input:hover{
+  background-color: rgba(255, 83, 13, 0.3);
+}
 .title {
+  text-align: center;
+  padding: 20px 20px 30px;
+  margin: 5px;
+}
+
+#title_page h1 {
+  color: #FFF;
+  font-size: 4em;
+}
+
+.doctor_patient {
+  background-color: rgba(0,0,0,0.5);
+  color: #FFF;
+  height: 300px;
+  border-radius: 10px;
+  margin:10px 5px 10px;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 5px;
+  height: 100%;
+  min-height: 380px;
+  padding-bottom: 5%
+}
+
+.doctor_patient input {
+  padding-left: 2%;
+  color:black;
+}
+
+#doctor h2 {
+  font-size: 2.5em;
+}
+
+#patient h2 {
+  font-size: 2.5em;
+}
+
+.field {
+  margin-top: 1em;
+  margin-bottom: 1em;
   text-align: center;
 }
 
-#title_page {
-  color: #0584FF;
-  padding: 2em;
+.field label {
+  position: absolute;
+  margin-top: 0.3em;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  font-size: 1.2em;
 }
 
-#doctor {
-  /*display: block;*/
-  /*text-align: center;*/
-  background-color: rgba(250,200,100,0.5);
+.field input {
+  height:2.5em;
+  width: 60%;
+  margin-left: 6em;
+  border-radius: 3px;
+  font-style: italic;
+  border: none;
 }
 
-#patient {
-  /*display: block;*/
-  /*text-align: center;*/
-  background-color: rgba(250,200,100,0.5);
+.list {
+  margin-top: 1.5em;
+  text-align: center;
 }
+
+.list label {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  font-size: 1em;
+}
+
+.fields button {
+  background:none;
+  border: none;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  font-size: 1.2em;
+}
+
+.fields button input {
+  background: none;
+  border:none;
+  color: white;
+}
+
+#patient .signup {
+  position: relative;
+  top: 52px;
+  /*line-height: 100%;*/
+  /*vertical-align: middle;*/
+}
+
 
 /*////////////////////FIXES///////////////////////////////*/
 
-.clearfix:after{
+.clearfix:after {
   content: ".";
   display: block;
   clear:both;
@@ -92,3 +176,12 @@ section h2 {
   height: 0;
   line-height: 0;
 }
+
+/*////////////////////MEDIA QUERY///////////////////////////////*/
+
+/*@media screen and (min-width: 1024px) {
+  body {
+    height:100%
+    background: url(../images/doctor.jpg) no-repeat fixed;
+  }
+}*/
